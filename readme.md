@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
@@ -72,3 +73,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+## Install instructions
+
+- Clone or download this repository
+- Run `composer install`
+- Configure your environment variables by copying the `.env.example` file to `.env` and setting your PIPEDRIVE_TOKEN.
+- Run your local server with `php artisan serve`
+- Browse to `localhost/person/[id]` url.
+>>>>>>> b320db4606bfd48b5ac7e8270d8f01da46e16905

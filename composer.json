@@ -9,6 +9,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+<<<<<<< HEAD
+=======
+        "devio/pipedrive": "^2.5",
+>>>>>>> b320db4606bfd48b5ac7e8270d8f01da46e16905
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0"
