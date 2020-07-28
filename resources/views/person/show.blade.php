@@ -16,9 +16,6 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-dark bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-  </nav>
   <div class="container mt-3">
     <div class="card">
       <h5 class="card-header">Schedule Meeting</h5>
@@ -66,7 +63,7 @@
                     <td><small>{{ $organization->name }}</small></td>
                     <td><small>{{ $organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'} }}</small></td>
                     <td><small>{{ $organization->{'1601d493c4d1578610678ffa123034bf7bb2bd78'} }}</small></td>
-                    <td><small><a href="https://calendly.com/adu-resource-center/adu-resource-center-contractor-booking-clone/2020-07-31T13:00:00-07:00?month=2020-07&date=2020-07-31&a1={{ urlencode($personPhone) }}&name={{ urlencode($organization->name) }}%20Meeting%20{{ urlencode($person->first_name) }}%20{{ urlencode($person->last_name) }}&a2={{ urlencode($personEmail) }}&email={{ urlencode($organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'}) }}&location={{ urlencode($person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'}) }}&a3={{ urlencode($person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'}) }}">Schedule meeting</a></small></td>
+                    <td><small><a href="https://calendly.com/adu-resource-center/adu-resource-center-contractor-booking-clone?a1={{ urlencode($personPhone) }}&name={{ urlencode($organization->name) }}%20Meeting%20{{ urlencode($person->first_name) }}%20{{ urlencode($person->last_name) }}&a2={{ urlencode($personEmail) }}&email={{ urlencode($organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'}) }}&location={{ urlencode($person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'}) }}&a3={{ urlencode($person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'}) }}">Schedule meeting</a></small></td>
                   </tr>
                 @endforeach
               </tbody>
