@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::get('/person/{id}', 'PersonController@show');
 Route::get('/getpersons/{id}', 'PersonController@getPersons');
 Route::get('/getorganizations', 'PersonController@getOrganizations');
+Route::get('/personsforupdate/{start}', 'PersonController@personsforupdate');
