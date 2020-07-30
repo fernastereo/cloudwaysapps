@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Show</title>
+  <title>Schedule Meeting</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <!-- Fonts -->
@@ -63,7 +63,7 @@
                     <td><small>{{ $organization->name }}</small></td>
                     <td><small>{{ $organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'} }}</small></td>
                     <td><small>{{ $organization->{'1601d493c4d1578610678ffa123034bf7bb2bd78'} }}</small></td>
-                    <td><small><a href="{{ env('CALENDLY_BASE_URL') }}?a1={{ urlencode($person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'}) }}&name={{ urlencode($organization->name) }}%20Meeting%20{{ urlencode($person->first_name) }}%20{{ urlencode($person->last_name) }}&a2={{ urlencode($personPhone) }}&email={{ urlencode($organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'}) }}&location={{ urlencode($person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'}) }}&a3={{ urlencode($personEmail) }}&a4={{ urlencode($person->id) }}">Schedule meeting</a></small></td>
+                    <td><small><a href="{{ env('CALENDLY_BASE_URL') }}?name={{ urlencode($organization->name) }}%20Meeting%20{{ urlencode($person->first_name) }}%20{{ urlencode($person->last_name) }}&email={{ urlencode($organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'}) }}&a1={{ urlencode($person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'}) }}&a2={{ urlencode($personPhone) }}&a3={{ urlencode($person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'}) }}&a4={{ urlencode($personEmail) }}&a5={{ urlencode($person->id) }}&a6={{ urlencode($organization->id) }}">Schedule meeting</a></small></td>
                   </tr>
                 @endforeach
               </tbody>
