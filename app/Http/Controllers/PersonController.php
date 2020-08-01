@@ -42,6 +42,22 @@ class PersonController extends Controller
         return view('person.show', ['person' => $person, 'organizations' => $organizations]);
     }
 
+    /**
+     * Display schedule meeting form.
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function schedule($personid, $organizationid){
+        $token = env('PIPEDRIVE_TOKEN');
+        $pipedrive = new Pipedrive($token);
+        
+        $person = $pipedrive->persons->find($personid)->getData();
+        $organization = $pipedrive->organizations->find($organizationid)->getData();
+        
+        return view('person.schedule', ['person' => $person, 'organizations' => $organization]);
+    }
+
     public function personsforupdate($start){
         $token = env('PIPEDRIVE_TOKEN');
         $pipedrive = new Pipedrive($token);
