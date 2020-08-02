@@ -19,4 +19,5 @@ Route::get('/person/{id}', 'PersonController@show');
 Route::get('/person/{personid}/schedule/{organizationid}', 'PersonController@schedule')->name('person.schedule');
 Route::get('/getpersons/{id}', 'PersonController@getPersons');
 Route::get('/getorganizations', 'PersonController@getOrganizations');
+Route::get('/getusers', 'PersonController@getusers');
 Route::get('/personsforupdate/{start}', 'PersonController@personsforupdate');

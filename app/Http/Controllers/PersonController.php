@@ -8,6 +8,14 @@ use Devio\Pipedrive\Pipedrive;
 
 class PersonController extends Controller
 {
+    public function getUsers(){
+        $token = env('PIPEDRIVE_TOKEN');
+        $pipedrive = new Pipedrive($token);
+        
+        $users = $pipedrive->users->all()->getData();
+        dd($users);
+    }
+
     public function getOrganizations(){
         $token = env('PIPEDRIVE_TOKEN');
         $pipedrive = new Pipedrive($token);
@@ -54,8 +62,9 @@ class PersonController extends Controller
         
         $person = $pipedrive->persons->find($personid)->getData();
         $organization = $pipedrive->organizations->find($organizationid)->getData();
-        
-        return view('person.schedule', ['person' => $person, 'organizations' => $organization]);
+        $users = $pipedrive->users->all()->getData();
+
+        return view('person.schedule', ['person' => $person, 'organization' => $organization, 'users' => $users]);
     }
 
     public function personsforupdate($start){
