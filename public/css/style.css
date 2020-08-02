@@ -53,11 +53,12 @@ body {
   color: #06c29c !important;
 }
 
- /* Extra Small Devices, Phones */ 
-@media only screen and (min-width : 480px) {
-  .texto{
-    color: blue;
-  }
+.meeting-information h6{
+  font-weight: 600;
+}
+
+.meeting-information label {
+  font-size: 0.9rem;
 }
 
 /* Small Devices, Tablets */
@@ -65,24 +66,4 @@ body {
   .meeting-information{
     border-left: 1px solid #dee2e6;
   }
-  .texto{
-    color: rgb(250, 246, 8);
-  }
-
-}
-
-/* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
-  .texto{
-    color: red;
-  }
-
-}
-
-/* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
-  .texto{
-    color: green;
-  }
-
 }

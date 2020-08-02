@@ -20,7 +20,7 @@
             <i class="fas fa-map-marker-alt"></i>Client Location
           </div>
           <div class="col-12 details-calendar">
-            <i class="far fa-calendar"></i>08:00 - 09:00, Saturday, August 1, 2020
+            <i class="far fa-calendar"></i><span id="timeSelected"></span>, <span id="dateSelected"></span>
           </div>
           <div class="col-12">
             <i class="fas fa-globe-americas"></i>Pacific Time - US & Canada
@@ -32,13 +32,25 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6 col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="datePicker">Date</label>
+              <input type="date" class="form-control form-control-sm" id="datePicker">
+            </div>
+          </div>
+          <div class="col-6 col-sm-12 col-lg-6">
+            <div class="form-group">
+              <label for="timePicker">Time</label>
+              <select class="custom-select custom-select-sm" id="timePicker" required>
+                <option selected disabled value="0">Choose...</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-7 meeting-information">
-      <form action="" method="post">
+    <div class="col-md-6 meeting-information">
+      <form action="https://hooks.zapier.com/hooks/catch/3340168/okf1t3l" method="post">
         @csrf
         <h6>Enter Details</h6>
         <div class="form-group">
@@ -99,9 +111,34 @@
           @endforeach
         </div>
         <div class="col-sm-12 mt-5">
-          <button type="submit" class="btn btn-primary">Schedule Event</button>
+          <button id="schedule" type="submit" class="btn btn-primary">Schedule Event</button>
         </div>
       </form>
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+  <script>
+    const currentDate = new Date();
+    const datePicker = document.getElementById('datePicker');
+    const timePicker = document.getElementById('timePicker');
+    const dateSelected = document.getElementById('dateSelected');
+    const timeSelected = document.getElementById('timeSelected');  
+    timeSelected.innerText = moment(currentDate).format('hh:mm');
+    dateSelected.innerText = moment(currentDate).format('MMMM Do YYYY');
+    
+    //Fill time picker
+    let key = 1;
+    for (let index = 8; index < 19; index++) {
+      let timeOption = `${index}:00`;
+      let option = new Option(timeOption, key++);
+      timePicker.add(option);
+      timeOption = `${index}:30`;
+      option = new Option(timeOption, key++);
+      timePicker.add(option);
+    }
+    
+    datePicker.addEventListener('change', (e) => { dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY') });
+    timePicker.addEventListener('change', (e) => { timeSelected.innerText = e.target[e.target.value].innerText });
+  </script>
 @endsection
