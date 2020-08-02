@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="col-md-6 meeting-information">
-      <form action="https://hooks.zapier.com/hooks/catch/3340168/okf1t3l" method="post">
+      <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post">
         @csrf
         <h6>Enter Details</h6>
         <div class="form-group">
