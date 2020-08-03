@@ -53,17 +53,19 @@
       <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post">
         @csrf
         <h6>Enter Details</h6>
+        <input id="hidden-date" type="hidden" name="date_selected" value="">
+        <input id="hidden-time" type="hidden" name="time_selected" value="">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control form-control-sm" id="name" readonly value="{{ $organization->name }} Meeting {{ $person->name }}">
+          <input type="text" class="form-control form-control-sm" id="name" name="name" readonly value="{{ $organization->name }} Meeting {{ $person->name }}">
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" class="form-control form-control-sm" id="email" readonly value="{{ $organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'} }}">
+          <input type="text" class="form-control form-control-sm" id="email" name="email" readonly value="{{ $organization->{'b9a9b40b7387cd9f7cafcc17969fae4eb695903d'} }}">
         </div>
         <div class="form-group">
           <label for="notes">Notes</label>
-          <textarea class="form-control form-control-sm" id="notes" readonly rows="2">{{ $person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'} }}</textarea>
+          <textarea class="form-control form-control-sm" id="notes" name="notes" readonly rows="2">{{ $person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'} }}</textarea>
         </div>
         <div class="form-group">
           @foreach ($person->phone as $phone)
@@ -74,11 +76,11 @@
             @endif
           @endforeach
           <label for="client-phone">Client Phone Number</label>
-          <input type="text" class="form-control form-control-sm" id="client-phone" readonly value="{{ $personPhone }}">
+          <input type="text" class="form-control form-control-sm" id="client-phone" name="client_phone" readonly value="{{ $personPhone }}">
         </div>
         <div class="form-group">
           <label for="client-address">Client Address</label>
-          <input type="text" class="form-control form-control-sm" id="client-address" readonly value="{{ $person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'} }}">
+          <input type="text" class="form-control form-control-sm" id="client-address" name="client_address" readonly value="{{ $person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'} }}">
         </div>
         <div class="form-group">
           @foreach ($person->email as $email)
@@ -89,21 +91,21 @@
             @endif
           @endforeach
           <label for="client-email">Client Email</label>
-          <input type="text" class="form-control form-control-sm" id="client-email" readonly value="{{ $personEmail }}">
+          <input type="text" class="form-control form-control-sm" id="client-email" name="client_email" readonly value="{{ $personEmail }}">
         </div>
         <div class="form-group">
           <label for="person-id">Pipedrive Person ID</label>
-          <input type="text" class="form-control form-control-sm" id="person-id" readonly value="{{ $person->id }}">
+          <input type="text" class="form-control form-control-sm" id="person-id" name="pipedrive_person_id" readonly value="{{ $person->id }}">
         </div>
         <div class="form-group">
           <label for="organization-id">Pipedrive Organization ID</label>
-          <input type="text" class="form-control form-control-sm" id="organization-id" readonly value="{{ $organization->id }}">
+          <input type="text" class="form-control form-control-sm" id="organization-id" name="pipedrive_organization_id" readonly value="{{ $organization->id }}">
         </div>
         <h6>ADU Resource Center Representative</h6>
         <div class="col-sm-10">
           @foreach ($users as $user)
             <div class="form-check-{{ $user->id }}">
-              <input class="form-check-input" type="radio" name="optionRadio" id="optionRadio-{{ $user->id }}">
+              <input class="form-check-input" type="radio" name="user_id_{{ $user->id }}" id="optionRadio-{{ $user->id }}">
               <label class="form-check-label" for="optionRadio-{{ $user->id }}">
                 {{ $user->email }}
               </label>
@@ -122,6 +124,9 @@
     const currentDate = new Date();
     const datePicker = document.getElementById('datePicker');
     const timePicker = document.getElementById('timePicker');
+    const hidDateSelected = document.getElementById('hidden-date');
+    const hidTimeSelected = document.getElementById('hidden-time');
+    
     const dateSelected = document.getElementById('dateSelected');
     const timeSelected = document.getElementById('timeSelected');  
     timeSelected.innerText = moment(currentDate).format('hh:mm');
@@ -138,7 +143,13 @@
       timePicker.add(option);
     }
     
-    datePicker.addEventListener('change', (e) => { dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY') });
-    timePicker.addEventListener('change', (e) => { timeSelected.innerText = e.target[e.target.value].innerText });
+    datePicker.addEventListener('change', (e) => { 
+      dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY');
+      hidDateSelected.value = e.target.value;
+    });
+    timePicker.addEventListener('change', (e) => { 
+      timeSelected.innerText = e.target[e.target.value].innerText;
+      hidTimeSelected.value = e.target[e.target.value].innerText;
+    });
   </script>
 @endsection
