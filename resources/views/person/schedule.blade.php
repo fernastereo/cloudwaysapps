@@ -54,7 +54,7 @@
         @csrf
         <h6>Enter Details</h6>
         <input id="hidden-date" type="hidden" name="date_selected" value="">
-        <input id="hidden-time" type="hidden" name="time_selected" value="">
+        <input id="hidden-time" type="hidden" value="">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" class="form-control form-control-sm" id="name" name="name" readonly value="{{ $organization->name }} Meeting {{ $person->name }}">
@@ -105,7 +105,7 @@
         <div class="col-sm-10">
           @foreach ($users as $user)
             <div class="form-check-{{ $user->id }}">
-              <input class="form-check-input" type="radio" name="user_id_{{ $user->id }}" id="optionRadio-{{ $user->id }}">
+              <input class="form-check-input" type="radio" name="{{ $user->email }}" id="optionRadio-{{ $user->id }}">
               <label class="form-check-label" for="optionRadio-{{ $user->id }}">
                 {{ $user->email }}
               </label>
@@ -143,13 +143,24 @@
       timePicker.add(option);
     }
     
-    datePicker.addEventListener('change', (e) => { 
+    let localdate = "";
+    datePicker.addEventListener('change', (e) => {
       dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY');
-      hidDateSelected.value = e.target.value;
+
+      localdate = `${e.target.value} ${hidTimeSelected.value}`;
+      var dateobj =  new Date(localdate);
+      var dateIso = dateobj.toISOString();
+      hidDateSelected.value = dateIso;
+      console.log(dateIso);
     });
     timePicker.addEventListener('change', (e) => { 
       timeSelected.innerText = e.target[e.target.value].innerText;
-      hidTimeSelected.value = e.target[e.target.value].innerText;
+      
+      localdate = `${datePicker.value} ${e.target[e.target.value].innerText}`;
+      var dateobj =  new Date(localdate);
+      var dateIso = dateobj.toISOString();
+      hidDateSelected.value = dateIso;
+      console.log(dateIso);
     });
   </script>
 @endsection
