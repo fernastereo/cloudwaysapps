@@ -8,6 +8,10 @@ use Devio\Pipedrive\Pipedrive;
 
 class PersonController extends Controller
 {
+    public function store(Request $request){
+        dd($request);
+    }
+    
     public function getUsers(){
         $token = env('PIPEDRIVE_TOKEN');
         $pipedrive = new Pipedrive($token);

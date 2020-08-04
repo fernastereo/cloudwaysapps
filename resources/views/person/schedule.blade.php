@@ -51,9 +51,11 @@
     </div>
     <div class="col-md-6 meeting-information">
       <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post">
-        @csrf
+      {{-- <form action="{{ route('person.store') }}" method="post"> --}}
+          @csrf
         <h6>Enter Details</h6>
         <input id="hidden-date" type="hidden" name="date_selected" value="">
+        <input id="hidden-end-time" type="hidden" name="end-time" value="">
         <input id="hidden-time" type="hidden" value="">
         <div class="form-group">
           <label for="name">Name</label>
@@ -101,16 +103,15 @@
           <label for="organization-id">Pipedrive Organization ID</label>
           <input type="text" class="form-control form-control-sm" id="organization-id" name="pipedrive_organization_id" readonly value="{{ $organization->id }}">
         </div>
-        <h6>ADU Resource Center Representative</h6>
-        <div class="col-sm-10">
-          @foreach ($users as $user)
-            <div class="form-check-{{ $user->id }}">
-              <input class="form-check-input" type="radio" name="{{ $user->email }}" id="optionRadio-{{ $user->id }}">
-              <label class="form-check-label" for="optionRadio-{{ $user->id }}">
-                {{ $user->email }}
-              </label>
-            </div>
-          @endforeach
+        
+        <div class="form-group">
+          <label for="user-id"><h6>ADU Resource Center Representative</h6></label>
+          <select id="user-id" class="form-control form-control-sm" name="pipedrive_user_id">
+            <option value="">Choose one...</option>
+            @foreach ($users as $user)
+              <option value="{{ $user->id }}">{{ $user->email }}</option>
+            @endforeach
+          </select>
         </div>
         <div class="col-sm-12 mt-5">
           <button id="schedule" type="submit" class="btn btn-primary">Schedule Event</button>
@@ -126,7 +127,8 @@
     const timePicker = document.getElementById('timePicker');
     const hidDateSelected = document.getElementById('hidden-date');
     const hidTimeSelected = document.getElementById('hidden-time');
-    
+    const hidEndTime = document.getElementById('hidden-end-time');
+
     const dateSelected = document.getElementById('dateSelected');
     const timeSelected = document.getElementById('timeSelected');  
     timeSelected.innerText = moment(currentDate).format('hh:mm');
@@ -147,20 +149,21 @@
     datePicker.addEventListener('change', (e) => {
       dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY');
 
-      localdate = `${e.target.value} ${hidTimeSelected.value}`;
-      var dateobj =  new Date(localdate);
-      var dateIso = dateobj.toISOString();
-      hidDateSelected.value = dateIso;
-      console.log(dateIso);
+      parseDates(e.target.value, hidTimeSelected.value);
     });
     timePicker.addEventListener('change', (e) => { 
       timeSelected.innerText = e.target[e.target.value].innerText;
       
-      localdate = `${datePicker.value} ${e.target[e.target.value].innerText}`;
-      var dateobj =  new Date(localdate);
-      var dateIso = dateobj.toISOString();
-      hidDateSelected.value = dateIso;
-      console.log(dateIso);
+      parseDates(datePicker.value, e.target[e.target.value].innerText);
     });
+
+    const parseDates = (date, time) => {
+      localdate = `${date} ${time}`;
+      let dateobj =  new Date(localdate);
+      let dateIso = dateobj.toISOString();
+      hidDateSelected.value = dateIso;
+      let endMeeting = new Date(moment(dateIso).add(60, 'm').toDate()).toISOString();
+      hidEndTime.value = endMeeting;
+    }
   </script>
 @endsection
