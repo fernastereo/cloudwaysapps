@@ -54,6 +54,7 @@
       {{-- <form action="{{ route('person.store') }}" method="post"> --}}
           @csrf
         <h6>Enter Details</h6>
+        <input id="hidden-full-name" type="hidden" name="client_full_name" value="{{ $person->name }}">
         <input id="hidden-date" type="hidden" name="date_selected" value="">
         <input id="hidden-end-time" type="hidden" name="end-time" value="">
         <input id="hidden-time" type="hidden" value="">
@@ -111,6 +112,14 @@
             @foreach ($users as $user)
               <option value="{{ $user->id }}">{{ $user->email }}</option>
             @endforeach
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pipline">Pipeline</label>
+          <select id="pipline" class="form-control form-control-sm" name="pipeline">
+            <option value="">Choose one...</option>
+            <option value="14">ADU</option>
+            <option value="21">Hardscape</option>
           </select>
         </div>
         <div class="col-sm-12 mt-5">
