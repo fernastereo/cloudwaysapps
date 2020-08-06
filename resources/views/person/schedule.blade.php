@@ -61,6 +61,8 @@
           @csrf
         <h6>Enter Details</h6>
         <input id="hidden-full-name" type="hidden" name="client_full_name" value="{{ $person->name }}">
+        <input id="hidden-person-id" type="hidden" name="pipedrive_person_id" value="{{ $person->id }}">
+        <input id="hidden-organization-id" type="hidden" name="pipedrive_organization_id" value="{{ $organization->id }}">
         <input id="hidden-date" type="hidden" name="date_selected" value="">
         <input id="hidden-end-time" type="hidden" name="end-time" value="">
         <input id="hidden-time" type="hidden" value="">
@@ -74,7 +76,7 @@
         </div>
         <div class="form-group">
           <label for="notes">Notes</label>
-          <textarea class="form-control form-control-sm" id="notes" name="notes" readonly rows="2">{{ $person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'} }}</textarea>
+          <textarea class="form-control form-control-sm" id="notes" name="notes" rows="2">{{ $person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'} }}</textarea>
         </div>
         <div class="form-group">
           @foreach ($person->phone as $phone)
@@ -101,16 +103,7 @@
           @endforeach
           <label for="client-email">Client Email</label>
           <input type="text" class="form-control form-control-sm" id="client-email" name="client_email" readonly value="{{ $personEmail }}">
-        </div>
-        <div class="form-group">
-          <label for="person-id">Pipedrive Person ID</label>
-          <input type="text" class="form-control form-control-sm" id="person-id" name="pipedrive_person_id" readonly value="{{ $person->id }}">
-        </div>
-        <div class="form-group">
-          <label for="organization-id">Pipedrive Organization ID</label>
-          <input type="text" class="form-control form-control-sm" id="organization-id" name="pipedrive_organization_id" readonly value="{{ $organization->id }}">
-        </div>
-        
+        </div>        
         <div class="form-group">
           <label for="user-id"><h6>ADU Resource Center Representative</h6></label>
           <select id="user-id" class="form-control form-control-sm" name="pipedrive_user_id">
