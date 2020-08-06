@@ -55,6 +55,10 @@ body {
     color: #06c29c !important;
 }
 
+.prueba {
+    position: relative;
+}
+
 .meeting-information h6 {
     font-weight: 600;
 }
@@ -63,6 +67,88 @@ body {
     font-size: 0.9rem;
 }
 
+.form-validate-b {
+    position: relative;
+}
+
+.form-validate-a i {
+    position: absolute;
+    top: 41px;
+    right: 50px;
+    visibility: hidden;
+}
+
+.form-validate-b label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.form-validate-b i {
+    position: absolute;
+    top: 39px;
+    right: 25px;
+    visibility: hidden;
+}
+
+.form-validate-a small,
+.form-validate-b small {
+    margin-left: 10px;
+    visibility: hidden;
+}
+
+.form-validate-a.success input {
+    border-color: #2ecc71;
+}
+
+.form-validate-a.error input {
+    border-color: #e74c3c;
+}
+
+.form-validate-a.success select {
+    border-color: #2ecc71;
+}
+
+.form-validate-a.error select {
+    border-color: #e74c3c;
+}
+
+.form-validate-a.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+}
+
+.form-validate-a.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+}
+
+.form-validate-a.error small {
+    visibility: visible;
+    color: #e74c3c;
+}
+
+.form-validate-b.success select {
+    border-color: #2ecc71;
+}
+
+.form-validate-b.error select {
+    border-color: #e74c3c;
+}
+
+.form-validate-b.success i.fa-check-circle {
+    color: #2ecc71;
+    visibility: visible;
+}
+
+.form-validate-b.error i.fa-exclamation-circle {
+    color: #e74c3c;
+    visibility: visible;
+}
+
+.form-validate-b.error small {
+    visibility: visible;
+    color: #e74c3c;
+}
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
     .meeting-information {

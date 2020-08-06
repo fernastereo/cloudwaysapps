@@ -39,17 +39,23 @@
       <div class="container">
         <div class="row">
           <div class="col-6 col-sm-12 col-lg-6">
-            <div class="form-group">
+            <div class="form-group form-validate-a">
               <label for="datePicker">Date</label>
               <input type="date" class="form-control form-control-sm" id="datePicker">
+              <i class="error-icon fas fa-check-circle"></i>
+              <i class="error-icon fas fa-exclamation-circle"></i>
+              <small>Error message</small>
             </div>
           </div>
           <div class="col-6 col-sm-12 col-lg-6">
-            <div class="form-group">
+            <div class="form-group form-validate-a">
               <label for="timePicker">Time</label>
               <select class="custom-select custom-select-sm" id="timePicker" required>
-                <option selected disabled value="0">Choose...</option>
+                <option selected disabled value="">Choose...</option>
               </select>
+              <i class="error-icon fas fa-check-circle"></i>
+              <i class="error-icon fas fa-exclamation-circle"></i>
+              <small>Error message</small>
             </div>
           </div>
         </div>
@@ -104,22 +110,28 @@
           <label for="client-email">Client Email</label>
           <input type="text" class="form-control form-control-sm" id="client-email" name="client_email" readonly value="{{ $personEmail }}">
         </div>        
-        <div class="form-group">
-          <label for="user-id"><h6>ADU Resource Center Representative</h6></label>
+        <div class="form-group form-validate-b">
+          <label for="user-id">ADU Resource Center Representative</label>
           <select id="user-id" class="form-control form-control-sm" name="pipedrive_user_id">
             <option value="">Choose one...</option>
             @foreach ($users as $user)
               <option value="{{ $user->id }}">{{ $user->email }}</option>
             @endforeach
           </select>
+          <i class="error-icon fas fa-check-circle"></i>
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          <small>Error message</small>
         </div>
-        <div class="form-group">
-          <label for="pipline">Pipeline</label>
-          <select id="pipline" class="form-control form-control-sm" name="pipeline">
+        <div class="form-group form-validate-b">
+          <label for="pipeline">Pipeline</label>
+          <select id="pipeline" class="form-control form-control-sm" name="pipeline">
             <option value="">Choose one...</option>
             <option value="14">ADU</option>
             <option value="21">Hardscape</option>
           </select>
+          <i class="error-icon fas fa-check-circle"></i>
+          <i class="error-icon fas fa-exclamation-circle"></i>
+          <small>Error message</small>
         </div>
         <div class="col-sm-12 mt-5">
           <button id="schedule" class="btn btn-primary">Schedule Event</button>
@@ -133,10 +145,12 @@
   <script src="{{ asset('js/manageDateTime.js') }}"></script>
   <script>
     let url = '{{ env('ZAPIER_WEBHOOK_URL') }}';
-
+    
     const btnSchedule = document.getElementById('schedule');
     btnSchedule.addEventListener('click', (e) => {
       e.preventDefault();
+      if(!checkInputs()) return;
+
       var data = new FormData(document.getElementById("form-data"));
       let personId = data.get('pipedrive_person_id');
       
@@ -169,5 +183,64 @@
       });
     });
     
+    const datePicker1 = document.getElementById("datePicker");
+    const timePicker1 = document.getElementById("timePicker");
+    const userId = document.getElementById("user-id");
+    const pipeline = document.getElementById("pipeline");
+
+    const checkInputs = () => {
+      const datePickerValue = datePicker1.value.trim();
+      const timePickerValue = timePicker1.value.trim();
+      const userIdValue = userId.value.trim();
+      const pipelineValue = pipeline.value.trim();
+      let result = true;
+
+      if (datePickerValue === ''){
+        //show error
+        //add error class
+        setErrorFor(datePicker1, 'Select a valid date');
+        result = false;
+      }else{
+        //add success class
+        setSuccessFor(datePicker1);
+      }
+      if (timePickerValue === ''){
+        setErrorFor(timePicker1, 'Select a valid time');
+        result = false;
+      }else{
+        setSuccessFor(timePicker1);
+      }
+      if (userIdValue === ''){
+        setErrorFor(userId, 'Select a Representative from the list');
+        result = false;
+      }else{
+        setSuccessFor(userId);
+      }
+      if (pipelineValue === ''){
+        setErrorFor(pipeline, 'Select a Pipeline from the list');
+        result = false;
+      }else{
+        setSuccessFor(pipeline);
+      }
+
+      return result;
+    }
+
+    const setErrorFor = (input, message) => {
+      const formControl = input.parentElement;
+      const small = formControl.querySelector('small');
+      
+      //add error message inside small
+      small.innerText = message;
+      //add error class
+      formControl.classList.remove('success');
+      formControl.classList.add('error');
+    }
+
+    const setSuccessFor = (input) => {
+      const formControl = input.parentElement;
+      formControl.classList.remove('error');
+      formControl.classList.add('success');
+    }
   </script>
 @endsection
