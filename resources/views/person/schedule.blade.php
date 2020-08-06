@@ -5,10 +5,15 @@
   
   <div class="row mx-0">
     <div class="col-md-5 px-0">
-      <div class="container py-4">
+      <div class="container">
         <div class="row company-information">
-          <div class="col-12 d-flex justify-content-center border-bottom pb-3 mb-1">
-            <img class="logo" src="{{ asset('images/adu.png') }}" alt="">
+          <div class="row col-12 border-bottom pb-3 mb-1">
+            <div class="col-6 col-md-12 col-xl-6 d-flex justify-content-center align-items-center px-0">
+              <img class="logo-adu" src="{{ asset('images/adu.png') }}" alt="">
+            </div>
+            <div class="col-6 col-md-12 col-xl-6 d-flex justify-content-center align-items-center px-0">
+              <img class="logo-express mt-md-3" src="{{ asset('images/express.png') }}" alt="">
+            </div>
           </div>
           <h4 class="mt-3">ADU Resource Center</h4>
           <h1>Schedule Contractor</h1>
@@ -154,7 +159,6 @@
             if (response.status === 'success') {
               Swal.fire({
                 title: 'Meeting Scheduled!',
-                text: 'You are scheduled with ADU Resource Center.',
                 icon: 'success',
                 confirmButtonText: 'Close',
                 onClose: () => window.location.replace('{{ env('REDIRECT_AFTER_SUBMISION') }}' + personId)

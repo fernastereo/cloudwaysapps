@@ -3,8 +3,14 @@ body {
     word-break: break-word;
 }
 
-.logo {
-    width: 8em;
+.logo-adu {
+    width: 7em;
+}
+
+.logo-express {
+    width: 13em;
+    height: 4em;
+    background-color: #16372c;
 }
 
 .company-information h4 {
