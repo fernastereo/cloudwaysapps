@@ -64,7 +64,7 @@
     <div class="col-md-6 meeting-information">
       <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post" id="form-data" name="form-data">
       {{-- <form action="{{ route('person.store') }}" method="post"> --}}
-          @csrf
+        @csrf
         <h6>Enter Details</h6>
         <input id="hidden-full-name" type="hidden" name="client_full_name" value="{{ $person->name }}">
         <input id="hidden-person-id" type="hidden" name="pipedrive_person_id" value="{{ $person->id }}">
