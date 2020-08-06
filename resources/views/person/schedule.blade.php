@@ -2,6 +2,7 @@
 
 @section('content')
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  
   <div class="row mx-0">
     <div class="col-md-5 px-0">
       <div class="container py-4">
@@ -50,7 +51,7 @@
       </div>
     </div>
     <div class="col-md-6 meeting-information">
-      <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post">
+      <form action="{{ env('ZAPIER_WEBHOOK_URL') }}" method="post" id="form-data" name="form-data">
       {{-- <form action="{{ route('person.store') }}" method="post"> --}}
           @csrf
         <h6>Enter Details</h6>
@@ -123,56 +124,53 @@
           </select>
         </div>
         <div class="col-sm-12 mt-5">
-          <button id="schedule" type="submit" class="btn btn-primary">Schedule Event</button>
+          <button id="schedule" class="btn btn-primary">Schedule Event</button>
         </div>
       </form>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="{{ asset('js/manageDateTime.js') }}"></script>
   <script>
-    const currentDate = new Date();
-    const datePicker = document.getElementById('datePicker');
-    const timePicker = document.getElementById('timePicker');
-    const hidDateSelected = document.getElementById('hidden-date');
-    const hidTimeSelected = document.getElementById('hidden-time');
-    const hidEndTime = document.getElementById('hidden-end-time');
+    let url = '{{ env('ZAPIER_WEBHOOK_URL') }}';
 
-    const dateSelected = document.getElementById('dateSelected');
-    const timeSelected = document.getElementById('timeSelected');  
-    timeSelected.innerText = moment(currentDate).format('hh:mm');
-    dateSelected.innerText = moment(currentDate).format('MMMM Do YYYY');
-    
-    //Fill time picker
-    let key = 1;
-    for (let index = 8; index < 19; index++) {
-      let timeOption = `${index}:00`;
-      let option = new Option(timeOption, key++);
-      timePicker.add(option);
-      timeOption = `${index}:30`;
-      option = new Option(timeOption, key++);
-      timePicker.add(option);
-    }
-    
-    let localdate = "";
-    datePicker.addEventListener('change', (e) => {
-      dateSelected.innerText = moment(e.target.value).format('MMMM Do YYYY');
-
-      parseDates(e.target.value, hidTimeSelected.value);
-    });
-    timePicker.addEventListener('change', (e) => { 
-      timeSelected.innerText = e.target[e.target.value].innerText;
+    const btnSchedule = document.getElementById('schedule');
+    btnSchedule.addEventListener('click', (e) => {
+      e.preventDefault();
+      var data = new FormData(document.getElementById("form-data"));
+      let personId = data.get('pipedrive_person_id');
       
-      parseDates(datePicker.value, e.target[e.target.value].innerText);
+      fetch(url, {
+        method : "POST",
+        data
+      })
+      .then(
+          response => response.json() 
+      )
+      .then(
+          response => {
+            if (response.status === 'success') {
+              Swal.fire({
+                title: 'Meeting Scheduled!',
+                text: 'You are scheduled with ADU Resource Center.',
+                icon: 'success',
+                confirmButtonText: 'Close',
+                onClose: () => window.location.replace('{{ env('REDIRECT_AFTER_SUBMISION') }}' + personId)
+              });
+            }
+          }
+      )
+      .catch( error => {
+        Swal.fire({
+          title: 'Error!',
+          text: error,
+          icon: 'error',
+          confirmButtonText: 'Close'
+        })
+      });
     });
-
-    const parseDates = (date, time) => {
-      localdate = `${date} ${time}`;
-      let dateobj =  new Date(localdate);
-      let dateIso = dateobj.toISOString();
-      hidDateSelected.value = dateIso;
-      let endMeeting = new Date(moment(dateIso).add(60, 'm').toDate()).toISOString();
-      hidEndTime.value = endMeeting;
-    }
+    
   </script>
 @endsection
