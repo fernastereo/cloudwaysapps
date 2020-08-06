@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-  <div class="col-4">
+  <div class="col-12 col-sm-4">
     <h5 class="card-title">{{ $person->first_name . ' ' . $person->last_name }}</h5>
     <p>
       @foreach ($person->phone as $phone)
@@ -27,9 +27,9 @@
   <p><small>{{ $person->{'35f00eb5ee0a5cec1fe2061cbc759fe72da4447c'} }}</small></p>
   <p><small>{{ $person->{'5f504213b4ac6207f8430a9c6618ad5d6dbcb233'} }}</small></p>
   </div>
-  <div class="col-8">
+  <div class="col-12 col-sm-8">
     <h6>Available Organizations</h6>
-    <table class="table table-sm">
+    <table class="table table-sm table-responsive">
       <thead>
         <tr>
           <th scope="col">Name</th>
