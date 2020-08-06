@@ -4,12 +4,11 @@ body {
 }
 
 .logo-adu {
-    width: 7em;
+    width: 40%;
 }
 
 .logo-express {
-    width: 13em;
-    height: 4em;
+    width: 100%;
     background-color: #16372c;
 }
 
@@ -149,6 +148,7 @@ body {
     visibility: visible;
     color: #e74c3c;
 }
+
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
     .meeting-information {
