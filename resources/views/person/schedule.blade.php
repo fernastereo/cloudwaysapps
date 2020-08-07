@@ -70,7 +70,7 @@
         <input id="hidden-person-id" type="hidden" name="pipedrive_person_id" value="{{ $person->id }}">
         <input id="hidden-organization-id" type="hidden" name="pipedrive_organization_id" value="{{ $organization->id }}">
         <input id="hidden-date" type="hidden" name="date_selected" value="">
-        <input id="hidden-end-time" type="hidden" name="end-time" value="">
+        <input id="hidden-end-time" type="hidden" name="end_time" value="">
         <input id="hidden-time" type="hidden" value="">
         <div class="form-group">
           <label for="name">Name</label>
@@ -151,12 +151,13 @@
       e.preventDefault();
       if(!checkInputs()) return;
 
-      var data = new FormData(document.getElementById("form-data"));
-      let personId = data.get('pipedrive_person_id');
-      
+      const form = document.getElementById("form-data");
+      const data = formToJSON(form.elements);
+      let personId = data.pipedrive_person_id;
+
       fetch(url, {
-        method : "POST",
-        data
+        method: "POST",
+        body: JSON.stringify(data)
       })
       .then(
           response => response.json() 
@@ -183,6 +184,13 @@
       });
     });
     
+    const formToJSON = elements => [].reduce.call(elements, (data, element) => {
+      if (element.name != '') {
+        data[element.name] = element.value;
+      }
+      return data;
+    }, {});
+
     const datePicker1 = document.getElementById("datePicker");
     const timePicker1 = document.getElementById("timePicker");
     const userId = document.getElementById("user-id");
