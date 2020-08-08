@@ -154,6 +154,8 @@
       const form = document.getElementById("form-data");
       const data = formToJSON(form.elements);
       let personId = data.pipedrive_person_id;
+      // console.log(data);
+      // return;
 
       fetch(url, {
         method: "POST",
